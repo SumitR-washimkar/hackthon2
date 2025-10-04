@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="/static/Css/employee_dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Employee Portal</h2>
+            <ul>
+                <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-section="expenses">Expenses</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div id="home" class="section active">
+                <h1>Welcome to Your Dashboard</h1>
+                <p>View your recent activities and manage your expenses.</p>
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Total Expenses</h3>
+                        <p>$0.00</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending Approvals</h3>
+                        <p>0</p>
+                    </div>
+                </div>
+            </div>
+            <div id="expenses" class="section">
+                <h1>Your Expenses</h1>
+                <p>Manage your expense records below.</p>
+                <ul class="tabs">
+                    <li><a href="#" class="tab-link active" data-tab="uploaded">Uploaded</a></li>
+                    <li><a href="#" class="tab-link" data-tab="new">New</a></li>
+                </ul>
+                <div id="uploaded" class="tab-content active">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4">No expenses found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="new" class="tab-content">
+                    <input type="file" id="receipt-upload" accept="image/*">
+                    <button id="upload-btn">Upload and Extract</button>
+                    <form id="expense-form" style="display:none;">
+                        <label for="employee">Employee:</label>
+                        <input type="text" id="employee" placeholder="Employee Name"><br>
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" placeholder="Description"><br>
+                        <label for="date">Date:</label>
+                        <input type="date" id="date"><br>
+                        <label for="category">Category:</label>
+                        <select id="category">
+                            <option value="Travel">Travel</option>
+                            <option value="Food">Food</option>
+                            <option value="Office Supplies">Office Supplies</option>
+                            <option value="Other">Other</option>
+                        </select><br>
+                        <label for="paid_by">Paid By:</label>
+                        <select id="paid_by">
+                            <option value="Cash">Cash</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select><br>
+                        <label for="remark">Remark:</label>
+                        <input type="text" id="remark" placeholder="Remark"><br>
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" placeholder="Amount"><br>
+                        <label for="status">Status:</label>
+                        <input type="text" id="status" value="Pending" readonly><br>
+                        <label for="submitted">Submitted:</label>
+                        <input type="text" id="submitted" value="No" readonly><br>
+                        <button type="submit">Submit Entry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/Js/employee/employee_dashboard.js"></script>
+</body>
+</html>

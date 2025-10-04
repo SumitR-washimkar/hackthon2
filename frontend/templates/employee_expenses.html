@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Expenses - Expense Management</title>
+    <link rel="stylesheet" href="/static/css/employee_dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Employee Portal</h2>
+            <nav>
+                <a href="#" class="nav-link active" data-section="expenses">💰 Expenses</a>
+                <a href="#" class="nav-link" data-section="dashboard">📊 Dashboard</a>
+                <a href="#" class="nav-link" data-section="profile">👤 Profile</a>
+                <a href="/login" class="nav-link logout">🚪 Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Expenses Section -->
+            <section id="expenses" class="section active">
+                <h1>Manage Expenses</h1>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab-link active" data-tab="new">➕ New Expense</button>
+                    <button class="tab-link" data-tab="uploaded">📋 Uploaded Expenses</button>
+                </div>
+
+                <!-- New Expense Tab -->
+                <div id="new" class="tab-content active">
+                    <div class="upload-section">
+                        <h3>Upload Receipt for OCR</h3>
+                        <p>Upload a receipt image and we'll automatically extract the details</p>
+                        
+                        <div class="upload-area">
+                            <input type="file" id="receipt-upload" accept="image/*" style="display: none;">
+                            <label for="receipt-upload" class="upload-label">
+                                📸 Choose Receipt Image
+                            </label>
+                            <button id="upload-btn" class="btn btn-primary">Upload & Extract</button>
+                        </div>
+
+                        <div id="loading-indicator" style="display: none; margin-top: 20px;">
+                            <p>🔄 Processing receipt with OCR...</p>
+                        </div>
+                    </div>
+
+                    <!-- Expense Form (Hidden initially) -->
+                    <form id="expense-form" style="display: none; margin-top: 30px;">
+                        <h3>Expense Details</h3>
+                        <p style="color: #666; margin-bottom: 20px;">Review and edit the auto-filled details below</p>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="employee">Employee Name</label>
+                                <input type="text" id="employee" name="employee" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="description">Description</label>
+                                <input type="text" id="description" name="description" placeholder="e.g., Business lunch with client" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category" name="category" required>
+                                    <option value="Food">Food</option>
+                                    <option value="Transportation">Transportation</option>
+                                    <option value="Accommodation">Accommodation</option>
+                                    <option value="Office Supplies">Office Supplies</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Medical">Medical</option>
+                                    <option value="Utilities">Utilities</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="paid_by">Paid By</label>
+                                <select id="paid_by" name="paid_by" required>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Credit Card">Credit Card</option>
+                                    <option value="Debit Card">Debit Card</option>
+                                    <option value="UPI">UPI</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="amount">Amount (₹)</label>
+                                <input type="number" id="amount" name="amount" step="0.01" min="0" placeholder="0.00" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select id="status" name="status">
+                                    <option value="Pending">Pending</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Rejected">Rejected</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="remark">Remarks (Optional)</label>
+                                <textarea id="remark" name="remark" rows="3" placeholder="Additional notes..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">💾 Submit Expense</button>
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('expense-form').style.display='none'">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Uploaded Expenses Tab -->
+                <div id="uploaded" class="tab-content">
+                    <h3>Your Uploaded Expenses</h3>
+                    
+                    <div class="table-container">
+                        <table class="expenses-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Payment</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Remarks</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="uploaded-expenses-tbody">
+                                <tr>
+                                    <td colspan="8" style="text-align: center; padding: 40px;">
+                                        Loading expenses...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other sections (Dashboard, Profile) can be added here -->
+        </main>
+    </div>
+
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #757575;
+            color: white;
+        }
+
+        .upload-area {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .upload-label {
+            padding: 10px 20px;
+            background: #2196F3;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        .expenses-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .expenses-table th,
+        .expenses-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .expenses-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #FFF3E0;
+            color: #F57C00;
+        }
+
+        .status-approved {
+            background: #E8F5E9;
+            color: #388E3C;
+        }
+
+        .status-rejected {
+            background: #FFEBEE;
+            color: #D32F2F;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+            margin-right: 5px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-delete {
+            background: #f44336;
+        }
+    </style>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/employee/employee_expenses.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Expense Management</title>
+    <link rel="stylesheet" href="/static/css/admin_dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin Panel</h2>
+                <p id="adminName">Loading...</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="home">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Home</span>
+                </a>
+                <a href="#" class="nav-item" data-page="create">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">Create Employee</span>
+                </a>
+                <a href="#" class="nav-item" data-page="management">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Management</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="logout-btn">
+                    <span>🚪</span> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="user-info">
+                    <span id="userEmail">admin@example.com</span>
+                </div>
+            </header>
+
+            <!-- Content Container -->
+            <div class="content-body">
+                <!-- Home Page Content -->
+                <div id="homePage" class="page-content active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Employees</h3>
+                            <p class="stat-number">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Expenses</h3>
+                            <p class="stat-number">$0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Pending Approvals</h3>
+                            <p class="stat-number">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Managers</h3>
+                            <p class="stat-number">0</p>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h2>Recent Activity</h2>
+                        <p class="no-data">No recent activity to display</p>
+                    </div>
+                </div>
+
+                <!-- Create Employee Page Content -->
+                <div id="createPage" class="page-content">
+                    <iframe id="createEmployeeFrame" src="" class="content-frame"></iframe>
+                </div>
+
+                <!-- Management Page Content -->
+                <div id="managementPage" class="page-content">
+                    <iframe id="managementFrame" src="" class="content-frame"></iframe>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/admin/admin_dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Employee</title>
+    <link rel="stylesheet" href="/static/css/admin_create.css">
+</head>
+<body>
+    <div class="create-container">
+        <div class="create-header">
+            <h1>Create New Employee</h1>
+            <p>Add a new employee or manager to your organization</p>
+        </div>
+
+        <div id="alert" class="alert"></div>
+
+        <form id="createEmployeeForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter full name">
+                <span class="error-message" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="employee@company.com">
+                <span class="error-message" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" name="role" required>
+                    <option value="">Select role</option>
+                    <option value="employee">Employee</option>
+                    <option value="manager">Manager</option>
+                </select>
+                <span class="error-message" id="roleError"></span>
+            </div>
+
+            <div class="form-group" id="managerGroup" style="display: none;">
+                <label for="manager">Assign Manager</label>
+                <select id="manager" name="manager">
+                    <option value="">Select manager (optional)</option>
+                </select>
+                <span class="error-message" id="managerError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Minimum 6 characters">
+                <span class="error-message" id="passwordError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter password">
+                <span class="error-message" id="confirmPasswordError"></span>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" id="resetBtn">Reset Form</button>
+                <button type="submit" class="btn-primary" id="submitBtn">
+                    <span class="btn-text">Create Employee</span>
+                    <div class="loading-spinner"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/static/js/admin/admin_create.js"></script>
+</body>
+</html>

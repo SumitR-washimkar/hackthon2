@@ -1,0 +1,11 @@
+<script>
+    const REQUIRED_ROLE = 'manager';
+    
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    
+    if (!token || user.role !== REQUIRED_ROLE) {
+        alert('Unauthorized access');
+        window.location.href = '/login';
+    }
+</script>
